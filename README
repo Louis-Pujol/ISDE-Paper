@@ -1,0 +1,6 @@
+This folder contains code to reproduce experiments presented in the paper ISDE : Independence Structure Density Estimation. It ocntains three notebooks :
+
+
+- Experiments.ipynb: to reproduce results of sections 4 and 5 of the paper
+- Running_times.ipynb : to reproduce section 1 of supplementary material and table 2 of the paper
+- More_experiments.ipynb : to reproduce section 1 of supplementary material
