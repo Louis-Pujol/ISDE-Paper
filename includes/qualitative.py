@@ -33,7 +33,7 @@ def logdensity_from_partition(X_grid, X_eval, partition, by_subsets):
 
     return np.ma.masked_invalid(logdensity_isde)
 
-def best_worst_rnd(X_train, X_validation, by_subsets, k):
+def best_worst_rnd(X_train, X_validation, by_subsets, k, exp_name):
 
     how_many_partitions = 3
 
@@ -119,12 +119,19 @@ def best_worst_rnd(X_train, X_validation, by_subsets, k):
     plt.ylabel("log-likelihood")
     plt.tight_layout()
     plt.show()
+    
+    sns.set_style("whitegrid")
+    ax = sns.boxplot(data=df)
+    plt.ylabel("log-likelihood")
+    plt.tight_layout()
+    plt.savefig("data/" + exp_name + "/scores_best_rnd_worst.png")
+    plt.clf()
 
 def edit(p1, p2):
     
     return 2 * sum([len(np.intersect1d(s1, s2)) != 0 for s1 in p1 for s2 in p2]) - len(p1) - len(p2)
 
-def edit_distance_best_rnd_worst(best_partition, by_subsets, d, k):
+def edit_distance_best_rnd_worst(best_partition, by_subsets, d, k, exp_name):
 
     how_many_partitions = 10
 
@@ -174,7 +181,18 @@ def edit_distance_best_rnd_worst(best_partition, by_subsets, d, k):
 #     plt.scatter([3], [edit(best_partition, [[i] for i in range(d)])])
     plt.xticks(np.arange(3), ['10 best', '10 random', '10 worst'])
     plt.ylabel("Edit distance to partition outputted by ISDE")
+    plt.tight_layout()
     plt.show()
+    
+    plt.scatter(np.zeros(10), out[:, 0])
+    plt.scatter(np.ones(10), out[:, 1])
+    plt.scatter(2 * np.ones(10), out[:, 2])
+#     plt.scatter([3], [edit(best_partition, [[i] for i in range(d)])])
+    plt.xticks(np.arange(3), ['10 best', '10 random', '10 worst'])
+    plt.ylabel("Edit distance to partition outputted by ISDE")
+    plt.tight_layout()
+    plt.savefig("data/" + exp_name + "/edit_best_rnd_worst.png")
+    plt.clf()
 
 def edit_plus_one(partition, k):
     
@@ -213,7 +231,7 @@ def edit_plus_one(partition, k):
 
     return part
 
-def random_walk(X_train, X_validation, best_partition, by_subsets, k):
+def random_walk(X_train, X_validation, best_partition, by_subsets, k, exp_name):
 
     partitions_from_walk = []
     edit_distances = []
@@ -258,4 +276,13 @@ def random_walk(X_train, X_validation, best_partition, by_subsets, k):
     plt.xlabel("Edit distance from partition outputted by ISDE")
     plt.ylabel("Mean log-likelihood")
     plt.scatter(edit_distances + [0], means)
+    plt.tight_layout()
     plt.show()
+    
+    
+    plt.xlabel("Edit distance from partition outputted by ISDE")
+    plt.ylabel("Mean log-likelihood")
+    plt.scatter(edit_distances + [0], means)
+    plt.tight_layout()
+    plt.savefig("data/" + exp_name + "/log_likelihood_walks.png")
+    plt.clf()
