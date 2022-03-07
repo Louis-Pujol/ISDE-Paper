@@ -12,5 +12,8 @@ To be executed it requires the following packages :
 - numpy
 - scipy
 - scikit-learn
+- matplotlib
+- seaborn
 - PuLP (https://pypi.org/project/PuLP/)
 - pyKeOps (https://www.kernel-operations.io/keops/python/installation.html)
+- more-itertools (https://pypi.org/project/more-itertools/)
