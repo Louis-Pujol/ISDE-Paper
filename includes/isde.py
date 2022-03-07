@@ -1,10 +1,12 @@
-#ISDE
 import numpy as np
 import itertools
 
 from pulp import LpMaximize, LpProblem, LpStatus, lpSum, LpVariable, LpMinimize
 from pulp import GLPK
 from  pulp.apis import PULP_CBC_CMD
+
+from sklearn.covariance import empirical_covariance
+from scipy.stats import multivariate_normal
 
 from sklearn.model_selection import train_test_split
 
@@ -236,3 +238,25 @@ def KDE_fixed_h(W, params):
     kde = GaussianKDE(bandwidth=h)
         
     return kde, {'bandwidth' : h}
+
+
+class Covariance:
+    
+    def __init__(self, cov):
+        self.cov = cov
+        
+        
+    
+    def score_samples(self, grid_points, eval_points):
+        """ Return log-likelihood evaluation
+        """
+        _, d = eval_points.shape
+        var = multivariate_normal(mean=np.zeros(d), cov=self.cov)
+        return np.log(var.pdf(eval_points))
+    
+def EmpCovariance(W, params):
+    
+    emp_cov = empirical_covariance(W, assume_centered=True)
+    estimator = Covariance(cov=emp_cov)
+    
+    return estimator, {'covariance' : emp_cov}
