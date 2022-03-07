@@ -1,6 +1,13 @@
-This folder contains code to reproduce experiments presented in the paper ISDE : Independence Structure Density Estimation. It ocntains three notebooks :
+This folder contains code to reproduce experiments presented in the paper ISDE : Independence Structure Density Estimation. It contains three notebooks :
 
 
-- Experiments.ipynb: to reproduce results of sections 4 and 5 of the paper
-- Running_times.ipynb : to reproduce section 1 of supplementary material and table 2 of the paper
-- More_experiments.ipynb : to reproduce section 1 of supplementary material
+- Synthetic data.ipynb: to reproduce expermients of section 4.1
+- Real data - loglikelihood.ipynb : to reproduce experiments of section 4.2.1
+- Qualitative analysis.ipynb : to reproduce experiments of section 4.2.2
+
+To be executed it requires the following packages :
+- numpy
+- scipy
+- scikit-learn
+- PuLP (https://pypi.org/project/PuLP/)
+- pyKeOps (https://www.kernel-operations.io/keops/python/installation.html)
