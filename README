@@ -5,6 +5,9 @@ This folder contains code to reproduce experiments presented in the paper ISDE :
 - Real data - loglikelihood.ipynb : to reproduce experiments of section 4.2.1
 - Qualitative analysis.ipynb : to reproduce experiments of section 4.2.2
 
+In the folder includes you can find the source code for the execution of density estimation algorithms FDE, BDCS, ISDE and GM in separate files
+and a file containing useful functions for qualitative analysis.
+
 To be executed it requires the following packages :
 - numpy
 - scipy
