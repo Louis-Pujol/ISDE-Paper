@@ -6,6 +6,8 @@ import pandas as pd
 import seaborn as sns
 import includes.isde as isde
 
+fontsize = 16
+
 
 
 def partition_random(d, k_max, k_min=1):
@@ -101,7 +103,7 @@ def best_worst_rnd(X_train, X_validation, by_subsets, k, exp_name):
 
     #Plot
 
-    mpl.rcParams['figure.dpi'] = 300
+    mpl.rcParams['figure.dpi'] = 1000
 
 
     df = pd.DataFrame()
@@ -116,13 +118,13 @@ def best_worst_rnd(X_train, X_validation, by_subsets, k, exp_name):
 
     sns.set_style("whitegrid")
     ax = sns.boxplot(data=df)
-    plt.ylabel("log-likelihood")
+    plt.ylabel("log-likelihood", size=fontsize)
     plt.tight_layout()
     plt.show()
     
     sns.set_style("whitegrid")
     ax = sns.boxplot(data=df)
-    plt.ylabel("log-likelihood")
+    plt.ylabel("log-likelihood", size=fontsize)
     plt.tight_layout()
     plt.savefig("data/" + exp_name + "/scores_best_rnd_worst.png")
     plt.clf()
@@ -173,14 +175,14 @@ def edit_distance_best_rnd_worst(best_partition, by_subsets, d, k, exp_name):
     for i in range(len(worst_partitions)):
         out[i, 2] = edit(best_partition, worst_partitions[i])
 
-    mpl.rcParams['figure.dpi'] = 300
+    mpl.rcParams['figure.dpi'] = 1000
     sns.set_style("whitegrid")
     plt.scatter(np.zeros(10), out[:, 0])
     plt.scatter(np.ones(10), out[:, 1])
     plt.scatter(2 * np.ones(10), out[:, 2])
 #     plt.scatter([3], [edit(best_partition, [[i] for i in range(d)])])
     plt.xticks(np.arange(3), ['10 best', '10 random', '10 worst'])
-    plt.ylabel("Edit distance to partition outputted by ISDE")
+    plt.ylabel("edit($\hat{\mathcal{P}}$, .)", size=fontsize)
     plt.tight_layout()
     plt.show()
     
@@ -189,7 +191,7 @@ def edit_distance_best_rnd_worst(best_partition, by_subsets, d, k, exp_name):
     plt.scatter(2 * np.ones(10), out[:, 2])
 #     plt.scatter([3], [edit(best_partition, [[i] for i in range(d)])])
     plt.xticks(np.arange(3), ['10 best', '10 random', '10 worst'])
-    plt.ylabel("Edit distance to partition outputted by ISDE")
+    plt.ylabel("edit($\hat{\mathcal{P}}$, .)", size=fontsize)
     plt.tight_layout()
     plt.savefig("data/" + exp_name + "/edit_best_rnd_worst.png")
     plt.clf()
@@ -270,18 +272,18 @@ def random_walk(X_train, X_validation, best_partition, by_subsets, k, exp_name):
             logdensity = logdensity_from_partition(X_grid=X_train, X_eval=X_v, partition=p, by_subsets=by_subsets)
             lls[i, j] = logdensity.mean()
 
-    mpl.rcParams['figure.dpi'] = 300
+    mpl.rcParams['figure.dpi'] = 1000
     sns.set_style("whitegrid")
     means = np.ma.masked_invalid(lls).mean(axis=0)
-    plt.xlabel("Edit distance from partition outputted by ISDE")
-    plt.ylabel("Mean log-likelihood")
+    plt.xlabel("edit($\hat{\mathcal{P}}$, .)", size=fontsize)
+    plt.ylabel("Mean log-likelihood", size=fontsize)
     plt.scatter(edit_distances + [0], means)
     plt.tight_layout()
     plt.show()
     
     
-    plt.xlabel("Edit distance from partition outputted by ISDE")
-    plt.ylabel("Mean log-likelihood")
+    plt.xlabel("edit($\hat{\mathcal{P}}$, .)", size=fontsize)
+    plt.ylabel("Mean log-likelihood", size=fontsize)
     plt.scatter(edit_distances + [0], means)
     plt.tight_layout()
     plt.savefig("data/" + exp_name + "/log_likelihood_walks.png")

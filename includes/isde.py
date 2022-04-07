@@ -198,7 +198,7 @@ def CVKDE(W, params):
         W_train, W_test = W[train_indexes, :], W[test_indexes, :]
                             
         for h in hs:
-            scores[h].append(np.mean (np.log( gaussian_kde(grid_points=W_train, eval_points=W_test, h=h))))
+            scores[h].append(np.mean (np.log(gaussian_kde(grid_points=W_train, eval_points=W_test, h=h))))
             
     mean_scores = [np.mean(scores[h]) for h in hs]
     h_opt = hs[np.argmax(mean_scores)]
